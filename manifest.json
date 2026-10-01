@@ -1,0 +1,41 @@
+{
+  "name": "Bảng Cửu Chương Vui",
+  "short_name": "Cửu Chương Vui",
+  "description": "Học toán siêu vui — Chinh phục điểm cao cùng game bảng cửu chương!",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "background_color": "#FFF8F0",
+  "theme_color": "#FF6B6B",
+  "orientation": "any",
+  "lang": "vi-VN",
+  "categories": [
+    "education",
+    "games"
+  ],
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

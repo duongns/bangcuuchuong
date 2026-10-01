@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 Bảng Cửu Chương Vui</title>
+  <meta name="theme-color" content="#FF6B6B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="manifest" href="manifest.json">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>🌟 Bảng Cửu Chương Vui 🌟</h1>
+    <p>Học toán siêu vui — Chinh phục điểm cao!</p>
+    <p id="greetingText" class="greeting-text"></p>
+  </header>
+
+  <!-- HOME SCREEN -->
+  <div id="homeScreen" class="screen active">
+
+    <div id="pwaInstallCard" class="pwa-install-card" role="status" aria-live="polite">
+      <div class="pwa-install-icon">📲</div>
+      <div class="pwa-install-copy">
+        <strong>Cài Bảng Cửu Chương Vui</strong>
+        <span id="pwaInstallHint">Cài lên màn hình chính để mở nhanh và học cả khi mất mạng.</span>
+      </div>
+      <button id="pwaInstallBtn" class="pwa-install-action" type="button">Cài ứng dụng</button>
+    </div>
+    <div class="start-wrap">
+      <button class="btn btn-primary" data-action="open-setup">🚀 Bắt đầu chơi</button>
+    </div>
+
+    <div class="card learning-dashboard" id="learningDashboard">
+      <div class="dashboard-empty">Đang tải tiến trình học...</div>
+    </div>
+
+    <div class="card">
+      <div class="leaderboard-title">🏆 Bảng thành tích</div>
+      <div id="leaderboard">
+        <div class="lb-empty">Chưa có thành tích nào. Hãy chơi ngay!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="gameScreen" class="screen">
+    <button class="btn btn-gray btn-end pause-main-btn" id="pauseBtn" data-action="pause-game">
+      ⏸️ Tạm dừng
+    </button>
+
+    <div class="top-bar">
+      <div class="score-badge">⭐ <span id="scoreDisplay">0</span></div>
+      <div class="streak-badge">🔥 <span id="streakDisplay">0</span></div>
+      <div class="timer-badge session-timer-badge" id="sessionTimerBadge">⏱
+        <span id="sessionTimerDisplay">05:00</span></div>
+      <div class="timer-badge question-timer-badge">⏳ <span
+          id="qTimerDisplay">10</span>s</div>
+    </div>
+
+    <div class="question-card">
+      <div class="q-type-label" id="qTypeLabel">Phép nhân</div>
+      <div class="q-equation" id="qEquation">? × ? = <span class="q-blank">?</span></div>
+    </div>
+
+    <div class="feedback-banner" id="feedbackBanner">✅ Chính xác! +1</div>
+
+    <div class="options-grid" id="optionsGrid"></div>
+  </div>
+
+  <!-- WELCOME OVERLAY -->
+  <div id="welcomeOverlay">
+    <div id="welcomeBox">
+      <h2>Chào mừng bạn mới! 👋</h2>
+      <p>Hãy nhập tên của bạn để lưu thành tích nhé:</p>
+      <input type="text" id="playerNameInput" placeholder="Tên của bạn" class="target-score-input player-name-input">
+      <button class="btn btn-primary welcome-start-btn" data-action="save-player-name">Bắt
+        đầu</button>
+    </div>
+  </div>
+
+  <!-- SETUP OVERLAY -->
+  <div id="setupOverlay">
+    <div id="setupBox">
+      <button class="setup-close" data-action="close-setup" aria-label="Đóng">✕</button>
+      <div class="setup-hero">
+        <h2>🚀 Thiết lập <span class="setup-title-rainbow">trò chơi</span></h2>
+        <p>Chọn chủ đề để bắt đầu chinh phục toán học!</p>
+      </div>
+
+      <div class="setup-section">
+        <label class="section-title">🧮 1. Chọn loại phép tính</label>
+        <div class="operation-grid">
+          <div class="chip operation-choice chip-mul selected" data-type="mul" data-action="toggle-type">
+            <span class="op-icon">✖️</span><span class="op-name">Phép nhân</span><span class="op-sub">Tăng tốc trí nhớ</span>
+          </div>
+          <div class="chip operation-choice chip-div" data-type="div" data-action="toggle-type">
+            <span class="op-icon">➗</span><span class="op-name">Phép chia</span><span class="op-sub">Rèn luyện tư duy</span>
+          </div>
+          <div class="chip operation-choice chip-add" data-type="add" data-action="toggle-type">
+            <span class="op-icon">➕</span><span class="op-name">Phép cộng</span><span class="op-sub">Cộng là vui</span>
+          </div>
+          <div class="chip operation-choice chip-sub" data-type="sub" data-action="toggle-type">
+            <span class="op-icon">➖</span><span class="op-name">Phép trừ</span><span class="op-sub">Trừ thật nhanh</span>
+          </div>
+        </div>
+        <div class="setup-hint">💡 Có thể chọn nhiều loại phép tính cùng lúc.</div>
+      </div>
+
+      <div class="setup-section">
+        <div class="table-head">
+          <label class="section-title">🔢 2. Chọn bảng tính</label>
+          <button class="select-all-link" data-action="select-all-nums">✓ Chọn tất cả</button>
+        </div>
+        <div id="numChips"><!-- 2–9 --></div>
+        <div class="table-actions">
+          <button class="btn btn-gray" data-action="clear-all-nums">✕ Bỏ chọn</button>
+        </div>
+      </div>
+
+      <div class="setup-section">
+        <label class="section-title">⏱️ 3. Thời lượng chơi</label>
+        <div id="durationChips">
+          <div class="chip selected" data-duration="5" data-action="toggle-duration"><span class="duration-icon">⏰</span><span class="duration-text"><strong>5 phút</strong><small>Thử sức nhanh</small></span></div>
+          <div class="chip" data-duration="10" data-action="toggle-duration"><span class="duration-icon">⏱️</span><span class="duration-text"><strong>10 phút</strong><small>Vừa đủ học</small></span></div>
+          <div class="chip" data-duration="20" data-action="toggle-duration"><span class="duration-icon">⏲️</span><span class="duration-text"><strong>20 phút</strong><small>Thách đấu dài</small></span></div>
+        </div>
+      </div>
+
+      <div class="setup-tip">🎯 <strong>Mẹo:</strong> Ôn tập thường xuyên giúp bạn ghi nhớ lâu hơn và trở thành cao thủ toán học!</div>
+      <div class="btn-row">
+        <button class="btn btn-gray" data-action="close-setup">✕ Huỷ</button>
+        <button class="btn btn-primary setup-start-btn" data-action="start-game">▶️ Bắt đầu chơi!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAUSE OVERLAY -->
+  <div id="pauseOverlay">
+    <div id="pauseBox">
+      <div class="pause-icon">⏸️</div>
+      <h2>Tạm dừng</h2>
+      <p class="pause-label">Thời gian đang dừng lại</p>
+      <div class="pause-score-wrap">
+        <div class="pause-score-num" id="pauseScoreNum">0</div>
+        <div class="pause-score-meta">
+          <div class="meta-label">⭐ Điểm hiện tại</div>
+          <div class="meta-streak" id="pauseStreakLabel">🔥 Streak: 0</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary pause-resume-btn" data-action="resume-game">▶️ Tiếp
+          tục</button>
+        <button class="btn btn-gray pause-end-btn" data-action="confirm-end-game">&#x1F3C1; Kết
+          thúc</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT OVERLAY -->
+  <div id="resultOverlay">
+    <div id="resultBox">
+      <div class="result-emoji" id="resultEmoji">🎉</div>
+      <h2 id="resultTitle">Tuyệt vời!</h2>
+      <div class="result-score" id="resultScore">0</div>
+      <div class="result-details" id="resultDetails"></div>
+      <div class="btn-row">
+        <button class="btn btn-gray" data-action="go-home">🏠 Trang chủ</button>
+        <button class="btn btn-primary replay-btn" data-action="open-setup">🔄 Chơi
+          lại</button>
+      </div>
+    </div>
+  </div>
+  <script src="db.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
